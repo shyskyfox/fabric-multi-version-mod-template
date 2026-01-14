@@ -4,7 +4,7 @@ plugins {
 }
 
 base {
-    archivesName = "${rootProject.mod_id}-mc${project.minecraft_version.replace('.', '')}"
+    archivesName = "${rootProject.mod_id}-mc-${project.minecraft_version.replace('.', '-')}-v"
 }
 
 dependencies {
