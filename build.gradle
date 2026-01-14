@@ -1,0 +1,17 @@
+// Root build file for multi-version mod setup
+// This configures common settings for all subprojects
+
+allprojects {
+    version = project.mod_version
+    group = project.maven_group
+
+    repositories {
+        // Add repositories to retrieve artifacts from in here.
+        // You should only use this when depending on other mods because
+        // Loom adds the essential maven repositories to download Minecraft and Fabric artifacts.
+        // See https://docs.gradle.org/current/userguide/declaring_repositories.html
+        // for more information about repositories.
+    }
+}
+
+// Root project doesn't need a custom build task - Gradle handles subproject builds automatically

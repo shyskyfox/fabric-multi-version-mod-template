@@ -1,0 +1,2 @@
+// Core project contains shared source code
+// It doesn't build a mod jar itself - version-specific projects include its sources

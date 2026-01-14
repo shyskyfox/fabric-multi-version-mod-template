@@ -1,0 +1,19 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = "Fabric"
+            url = "https://maven.fabricmc.net/"
+        }
+        gradlePluginPortal()
+    }
+    plugins {
+        id 'fabric-loom' version '1.14-SNAPSHOT'
+    }
+}
+
+rootProject.name = "fabric-multi-version-mod-template"
+
+// Include subprojects
+include 'core'
+include 'mc-1.21.1'
+include 'mc-1.21.2'

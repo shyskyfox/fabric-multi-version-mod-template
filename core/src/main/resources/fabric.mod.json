@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "multiversiontemplate",
+  "version": "${version}",
+  "name": "Multi Version Template Mod",
+  "description": "A simple Mod Template.",
+  "authors": [
+    "Lina"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/multiversiontemplate/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+        "com.multiversion.template.ExampleModClient"
+    ]
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
