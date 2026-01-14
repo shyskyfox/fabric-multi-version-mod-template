@@ -322,6 +322,14 @@ private void registerTimeCommand(CommandDispatcher<ServerCommandSource> dispatch
   rm -rf ~/.gradle/caches/
   ```
 
+## 📜 Credits
+
+Dieses Template wurde von shyskyfox erstellt. Wenn du dieses Template für deine eigenen Mods verwendest, gib bitte eine kurze Erwähnung im Mod-Beschreibung oder README deiner Mod. Zum Beispiel:
+
+"Basierend auf dem Fabric Multi-Version Mod Template von shyskyfox (https://github.com/shyskyfox/fabric-multi-version-mod-template)"
+
+Die MIT-Lizenz erfordert die Beibehaltung des Copyright-Hinweises in allen Kopien oder wesentlichen Teilen der Software.
+
 ## 📚 Weiterführende Ressourcen
 
 - [Fabric Modding Wiki](https://fabricmc.net/wiki/start)
