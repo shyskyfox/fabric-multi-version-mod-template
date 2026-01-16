@@ -1,0 +1,10 @@
+// Common dependencies for all versions
+// This file contains shared dependencies that can be overridden per version
+
+dependencies {
+    // Example common dependencies - uncomment and modify as needed:
+    // modImplementation 'com.example:common-mod:1.0.0'
+    // include 'com.example:common-library:1.0.0'
+
+    // Add your common dependencies here using normal Gradle syntax
+}

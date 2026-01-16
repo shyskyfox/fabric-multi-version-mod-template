@@ -3,16 +3,46 @@ plugins {
     id 'maven-publish'
 }
 
+// Apply common dependencies
+apply from: '../dependencies.gradle'
+
+// Function to replace placeholders in export format
+def resolveExportFormat(String format) {
+    return format
+        .replace('{modname}', rootProject.mod_id)
+        .replace('{mod-version}', rootProject.version)  // Use root project version for consistency
+        .replace('{mc-version}', project.minecraft_version)
+        .replace('{mc-version-dashed}', project.minecraft_version.replace('.', '-'))
+}
+
+// Override export format for this version (optional)
+def versionExportFormat = project.hasProperty('export_format_override') ?
+    project.export_format_override : rootProject.export_format
+
+// Set version to empty to prevent Gradle from appending it to jar names
+version = ''
+
 base {
-    archivesName = "${rootProject.mod_id}-mc-${project.minecraft_version.replace('.', '-')}-v"
+    archivesName = resolveExportFormat(versionExportFormat)
 }
 
 dependencies {
-    // Version-specific dependencies
+    // Version-specific dependencies (Fabric core dependencies)
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+    // Override or exclude common dependencies here if needed
+    // Example: override a common dependency version
+    // modImplementation('com.example:common-mod') {
+    //     version {
+    //         strictly '2.0.0'
+    //     }
+    // }
+
+    // Example: disable/exclude a common dependency
+    // configurations.modImplementation.exclude group: 'com.example', module: 'unwanted-mod'
 }
 
 // Include sources from core
@@ -20,10 +50,10 @@ sourceSets.main.java.srcDirs += file('../core/src/main/java')
 sourceSets.main.resources.srcDirs += file('../core/src/main/resources')
 
 processResources {
-    inputs.property "version", project.version
+    inputs.property "version", rootProject.version
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand "version": rootProject.version
     }
 }
 
