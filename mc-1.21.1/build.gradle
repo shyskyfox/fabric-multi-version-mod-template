@@ -68,6 +68,13 @@ java {
 }
 
 jar {
+    doFirst {
+        println("")
+        println "=========================================================================="
+        println "Building mod using fabric-multi-version-mod-template by shyskyfox aka Lina"
+        println "https://github.com/shyskyfox/fabric-multi-version-mod-template"
+        println "=========================================================================="
+    }
     from("../../LICENSE") {
         rename { "${it}_${project.base.archivesName}"}
     }

@@ -1,207 +1,207 @@
 # Fabric Multi-Version Mod Template
 
-Ein erweiterbares Fabric-Mod-Template für Minecraft, das als Basis für die Entwicklung von Mods dient, die mehrere Minecraft-Versionen unterstützen. Das Template demonstriert grundlegende Mod-Strukturen, Client-seitige Befehle und Multi-Version-Builds.
+An extensible Fabric mod template for Minecraft that serves as a foundation for developing mods that support multiple Minecraft versions. The template demonstrates basic mod structures, client-side commands, and multi-version builds.
 
-Dieses Projekt ist so konfiguriert, dass es auf allen Betriebssystemen (Windows, macOS, Linux) eine einheitliche Entwicklungsumgebung bietet und mehrere Minecraft-Versionen unterstützt.
+This project is configured to provide a consistent development environment across all operating systems (Windows, macOS, Linux) and supports multiple Minecraft versions.
 
-## 🚀 Schnellstart
+## 🚀 Quick Start
 
-1. **Repository klonen:**
+1. **Clone the repository:**
    ```bash
    git clone <repository-url>
    cd fabric-multi-version-mod-template
    ```
 
-2. **Java 21 JDK installieren** (falls nicht vorhanden)
+2. **Install Java 21 JDK** (if not present)
 
-3. **Mod für Minecraft 1.21.1 bauen:**
+3. **Build mod for Minecraft 1.21.1:**
    ```bash
    ./gradlew :mc-1.21.1:build
    ```
 
-4. **Im Spiel testen:**
-   - Mod in `mc-1.21.1/build/libs/` finden (Datei ohne `-dev` oder `-sources`)
-   - In Minecraft-Launcher als Mod installieren
-   - `/hello` im Chat eingeben
+4. **Test in game:**
+   - Find mod in `mc-1.21.1/build/libs/` (file without `-dev` or `-sources`)
+   - Install as mod in Minecraft Launcher
+   - Type `/hello` in chat
 
-## 📋 Unterstützte Versionen
+## 📋 Supported Versions
 
-* **Minecraft-Versionen:**
-  - 1.21.1 (vollständig konfiguriert)
-  - 1.21.2 (Beispiel-Setup, kann angepasst werden)
+* **Minecraft Versions:**
+  - 1.21.1 (fully configured)
+  - 1.21.2 (example setup, can be customized)
 * **Java:** 21
-* **Fabric API:** Aktuelle Version pro Minecraft-Version
+* **Fabric API:** Current version per Minecraft version
 
-## 🏗️ Projektstruktur
+## 🏗️ Project Structure
 
 ```
 fabric-multi-version-mod-template/
-├── core/                          # Gemeinsamer Quellcode
+├── core/                          # Shared source code
 │   ├── src/main/java/com/multiversion/template/
-│   │   ├── ExampleMod.java               # Server-Mod (leer)
-│   │   └── ExampleModClient.java         # Client-Mod mit Befehlen
+│   │   ├── ExampleMod.java               # Server mod (empty)
+│   │   └── ExampleModClient.java         # Client mod with commands
 │   └── src/main/resources/
-│       └── fabric.mod.json                # Mod-Konfiguration
-├── mc-1.21.1/                    # Build-Konfiguration für MC 1.21.1
-│   ├── build.gradle              # Gradle-Build-Skript
-│   └── gradle.properties         # Versionen und Einstellungen
-├── mc-1.21.2/                    # Beispiel für weitere Version
+│       └── fabric.mod.json                # Mod configuration
+├── mc-1.21.1/                    # Build configuration for MC 1.21.1
+│   ├── build.gradle              # Gradle build script
+│   └── gradle.properties         # Versions and settings
+├── mc-1.21.2/                    # Example for additional version
 ├── gradle/wrapper/               # Gradle Wrapper
-├── build.gradle                  # Root-Build-Skript
-├── settings.gradle               # Projekt-Konfiguration
+├── build.gradle                  # Root build script
+├── settings.gradle               # Project configuration
 └── README.md
 ```
 
-## ⚙️ Gradle-Befehle Übersicht
+## ⚙️ Gradle Commands Overview
 
-### Grundlegende Befehle
+### Basic Commands
 
-| Befehl | Beschreibung | Beispiel |
-|--------|-------------|----------|
-| `./gradlew --version` | Gradle-Version anzeigen | `./gradlew --version` |
-| `./gradlew tasks` | Alle verfügbaren Tasks auflisten | `./gradlew tasks` |
-| `./gradlew clean` | Build-Verzeichnisse leeren | `./gradlew clean` |
-| `./gradlew build` | Alle Versionen bauen | `./gradlew build` |
-| `./gradlew :mc-1.21.1:build` | Spezifische Version bauen | `./gradlew :mc-1.21.1:build` |
-| `./gradlew addMcVersion -PmcVersion=X.Y.Z` | Neue MC-Version hinzufügen | `./gradlew addMcVersion -PmcVersion=1.21.3` |
-| `.\gradlew.bat addMcVersion -PmcVersion=1-21-4` | Neue MC-Version mit Bindestrichen | `./gradlew addMcVersion -PmcVersion=1-21-4` |
+| Command                                    | Description                              | Example |
+|--------------------------------------------|------------------------------------------|---------|
+| `./gradlew --version`                      | Show Gradle version                      | `./gradlew --version` |
+| `./gradlew tasks`                          | List all available tasks                 | `./gradlew tasks` |
+| `./gradlew clean`                          | Clear build directories                  | `./gradlew clean` |
+| `./gradlew build`                          | Build all versions                       | `./gradlew build` |
+| `./gradlew :mc-X.Y.Z:build`                | Build specific version                   | `./gradlew :mc-1.21.1:build` |
+| `./gradlew addMcVersion -PmcVersion=X.Y.Z` | Add new MC version                       | `./gradlew addMcVersion -PmcVersion=1.21.3` |
+| `./gradlew addMcVersion -PmcVersion=X-Y-Z` | Add new MC version with dashes (windows) | `./gradlew addMcVersion -PmcVersion=1-21-4` |
 
-### Entwicklung und Test
+### Development and Testing
 
-| Befehl | Beschreibung | Verwendung |
-|--------|-------------|-----------|
-| `./gradlew :mc-1.21.1:runClient` | Minecraft-Client starten | Für Entwicklung und Test |
-| `./gradlew :mc-1.21.1:runServer` | Minecraft-Server starten | Für Server-Tests |
-| `./gradlew :mc-1.21.1:genSources` | Minecraft-Quellcode generieren | Für IDE-Unterstützung |
+| Command | Description | Usage |
+|---------|-------------|-------|
+| `./gradlew :mc-1.21.1:runClient` | Start Minecraft client | For development and testing |
+| `./gradlew :mc-1.21.1:runServer` | Start Minecraft server | For server testing |
+| `./gradlew :mc-1.21.1:genSources` | Generate Minecraft source code | For IDE support |
 
 ### Multi-Version Builds
 
-* **Spezifische Version bauen:**
+* **Build specific version:**
   ```bash
   ./gradlew :mc-1.21.1:build
   ```
 
-* **Alle Versionen bauen:**
+* **Build all versions:**
   ```bash
   ./gradlew build
   ```
 
-* **Parallele Builds (schneller):**
+* **Parallel builds (faster):**
   ```bash
   ./gradlew build --parallel
   ```
 
-## 1. Setup des Entwicklungsumgebung
+## 1. Setup Development Environment
 
-Stelle sicher, dass du das **Java 21 JDK** installiert hast.
+Make sure you have the **Java 21 JDK** installed.
 
-1.  **Klone das Repository:**
-    ```bash
-    git clone <repository-url>
-    cd fabric-multi-version-mod-template
-    ```
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd fabric-multi-version-mod-template
+   ```
 
-2.  **IDE einrichten (IntelliJ IDEA empfohlen):**
-    *   Öffne das Projektverzeichnis in IntelliJ IDEA.
-    *   IntelliJ erkennt das `build.gradle` und konfiguriert das Projekt automatisch. Dies kann einige Minuten dauern, da Gradle die Minecraft-Abhängigkeiten herunterlädt.
-    *   Führe den `genSources`-Task aus, um den dekompilierten Minecraft-Quellcode für deine IDE verfügbar zu machen. Du findest ihn im Gradle-Panel auf der rechten Seite unter `Tasks > fabric > genSources`.
+2. **Set up IDE (IntelliJ IDEA recommended):**
+   * Open the project directory in IntelliJ IDEA.
+   * IntelliJ recognizes the `build.gradle` and configures the project automatically. This may take a few minutes as Gradle downloads Minecraft dependencies.
+   * Run the `genSources` task to make the decompiled Minecraft source code available for your IDE. You can find it in the Gradle panel on the right side under `Tasks > fabric > genSources`.
 
-## 2. Projekt bauen
+## 2. Build Project
 
-Um eine `.jar`-Datei des Mods zu erstellen, die du in einem echten Minecraft-Client oder -Server verwenden kannst, führe den folgenden Befehl im Terminal aus:
+To create a `.jar` file of the mod that you can use in a real Minecraft client or server, run the following command in the terminal:
 
-*   **Für Windows:**
-    ```bash
-    .\gradlew.bat build
-    ```
-*   **Für macOS/Linux:**
-    ```bash
-    ./gradlew build
-    ```
+* **For Windows:**
+  ```bash
+  .\gradlew.bat build
+  ```
+* **For macOS/Linux:**
+  ```bash
+  ./gradlew build
+  ```
 
-Die fertige Mod-Datei findest du anschließend im Verzeichnis `build/libs/`. Die Datei ohne `-dev` oder `-sources` ist die, die du verteilen kannst.
+The finished mod file can be found in the `build/libs/` directory afterwards. The file without `-dev` or `-sources` is the one you can distribute.
 
-## 3. Testen in der Entwicklungsumgebung
+## 3. Testing in Development Environment
 
-Du kannst das Spiel direkt aus deiner IDE oder über das Terminal starten, um den Mod zu testen.
+You can start the game directly from your IDE or via the terminal to test the mod.
 
-*   **Starte den Client:**
-    *   Führe den `runClient`-Task im Gradle-Panel aus (`Tasks > fabric > runClient`).
-    *   Oder im Terminal: `./gradlew runClient`
+* **Start the client:**
+  * Run the `runClient` task in the Gradle panel (`Tasks > fabric > runClient`).
+  * Or in terminal: `./gradlew runClient`
 
-*   **Starte den Server:**
-    *   Führe den `runServer`-Task im Gradle-Panel aus (`Tasks > fabric > runServer`).
-    *   Oder im Terminal: `./gradlew runServer`
-    *   Beim ersten Start musst du die `eula.txt` akzeptieren.
+* **Start the server:**
+  * Run the `runServer` task in the Gradle panel (`Tasks > fabric > runServer`).
+  * Or in terminal: `./gradlew runServer`
+  * On first start, you must accept the `eula.txt`.
 
-## 🎮 Mod-Befehle Übersicht
+## 🎮 Mod Commands Overview
 
-### Verfügbare Befehle
+### Available Commands
 
-| Befehl | Beschreibung | Beispiel-Ausgabe |
-|--------|-------------|------------------|
-| `/hello` | Einfacher Begrüßungsbefehl | `Hello, world!` |
+| Command | Description | Example Output |
+|---------|-------------|----------------|
+| `/hello` | Simple greeting command | `Hello, world!` |
 
-### Wie funktionieren die Befehle?
+### How do the commands work?
 
-Die Befehle werden client-seitig registriert und funktionieren sowohl im Singleplayer als auch auf Multiplayer-Servern. Sie nutzen die Fabric Command API v2 für eine robuste Befehlsverarbeitung.
+The commands are registered client-side and work in both singleplayer and multiplayer servers. They use the Fabric Command API v2 for robust command processing.
 
-**Code-Beispiel für `/hello`:**
+**Code example for `/hello`:**
 ```java
 dispatcher.register(literal("hello")
     .executes(context -> {
         context.getSource().sendFeedback(() -> Text.literal("Hello, world!"), false);
-        return 1; // Erfolg signalisieren
+        return 1; // Signal success
     }));
 ```
 
-## 🔧 Template erweitern
+## 🔧 Extending the Template
 
-### Neue Befehle hinzufügen
+### Adding New Commands
 
-1. **Neue Methode in `ExampleModClient.java` erstellen:**
+1. **Create new method in `ExampleModClient.java`:**
    ```java
    private void registerExampleCommand(CommandDispatcher<ServerCommandSource> dispatcher) {
        dispatcher.register(literal("example")
            .executes(context -> {
                context.getSource().sendFeedback(() ->
-                   Text.literal("Beispiel-Befehl ausgeführt!"), false);
+                   Text.literal("Example command executed!"), false);
                return 1;
            }));
    }
    ```
 
-2. **Befehl in `onInitializeClient()` registrieren:**
+2. **Register command in `onInitializeClient()`:**
    ```java
    CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
        registerHelloCommand(dispatcher);
-       registerExampleCommand(dispatcher); // Neuen Befehl hinzufügen
+       registerExampleCommand(dispatcher); // Add new command
    });
    ```
 
-3. **Mod neu bauen und testen:**
+3. **Rebuild and test mod:**
    ```bash
    ./gradlew :mc-1.21.1:build
    ./gradlew :mc-1.21.1:runClient
    ```
 
-### Weitere Befehls-Beispiele
+### Further Command Examples
 
-Das Template enthält bereits einen einfachen `/hello`-Befehl als Beispiel. Hier sind weitere Ideen für Befehle, die du implementieren kannst:
+The template already contains a simple `/hello` command as an example. Here are more ideas for commands you can implement:
 
-**Beispiel: Einfacher Info-Befehl**
+**Example: Simple Info Command**
 ```java
 private void registerInfoCommand(CommandDispatcher<ServerCommandSource> dispatcher) {
     dispatcher.register(literal("info")
         .executes(context -> {
             context.getSource().sendFeedback(() ->
-                Text.literal("Dies ist ein Beispiel-Mod!"), false);
+                Text.literal("This is an example mod!"), false);
             return 1;
         }));
 }
 ```
 
-**Beispiel: Spieler-Position-Befehl**
+**Example: Player Position Command**
 ```java
 private void registerPositionCommand(CommandDispatcher<ServerCommandSource> dispatcher) {
     dispatcher.register(literal("position")
@@ -217,63 +217,52 @@ private void registerPositionCommand(CommandDispatcher<ServerCommandSource> disp
 }
 ```
 
-**Beispiel: Welt-Zeit-Befehl**
+**Example: World Time Command**
 ```java
 private void registerTimeCommand(CommandDispatcher<ServerCommandSource> dispatcher) {
     dispatcher.register(literal("worldtime")
         .executes(context -> {
             long time = context.getSource().getWorld().getTime();
             context.getSource().sendFeedback(() ->
-                Text.literal("Welt-Zeit: " + time), false);
+                Text.literal("World Time: " + time), false);
             return 1;
         }));
 }
 ```
 
-### Neue Minecraft-Version hinzufügen
+### Adding New Minecraft Version
 
-**Automatisch mit Gradle-Task (empfohlen):**
+**Automatically with Gradle task (recommended):**
 
-1. **Gradle-Task verwenden (nicht-interaktiv):**
+1. **Use Gradle task (non-interactive):**
    ```bash
    # Linux/macOS
    ./gradlew addMcVersion -PmcVersion=1.21.11
 
-   # Windows (Bindestriche werden automatisch in Punkte umgewandelt)
+   # Windows (dashes are automatically converted to dots)
    .\gradlew.bat addMcVersion -PmcVersion=1-21-11
    ```
+   **Important:** After adding a version, check the correct Fabric versions at https://fabricmc.net/develop/ and update the `gradle.properties` in the new folder if necessary.
 
-2. **Gradle-Task verwenden (interaktiv - für manuelle Anpassungen):**
-   ```bash
-   # Linux/macOS
-   ./gradlew addMcVersion -Pinteractive=true
-
-   # Windows
-   .\gradlew.bat addMcVersion -Pinteractive=true
-   ```
-   *Hinweis:* Der interaktive Modus erfordert ein Terminal, das Konsolen-Eingabe unterstützt. In einigen IDE-Terminals oder PowerShell-Umgebungen funktioniert dies möglicherweise nicht. Verwende in diesem Fall die nicht-interaktive Variante und passe die `gradle.properties` bei Bedarf manuell an.
-
-   **Wichtig:** Nach dem Hinzufügen einer Version überprüfe die korrekten Fabric-Versionen auf https://fabricmc.net/develop/ und aktualisiere ggf. die `gradle.properties` im neuen Ordner.
-
-3. **Neue Version bauen:**
+2. **Build new version:**
    ```bash
    ./gradlew :mc-1.21.11:build
    ```
 
-**Manuell (alternativ):**
+**Manually (alternative):**
 
-1. **Neues Verzeichnis erstellen:**
+1. **Create new directory:**
    ```bash
    mkdir mc-1.21.11
    ```
 
-2. **Konfigurationsdateien kopieren:**
+2. **Copy configuration files:**
    ```bash
    cp mc-1.21.1/build.gradle mc-1.21.11/
    cp mc-1.21.1/gradle.properties mc-1.21.11/
    ```
 
-3. **Versionen aktualisieren in `mc-1.21.11/gradle.properties`:**
+3. **Update versions in `mc-1.21.11/gradle.properties`:**
    ```properties
     minecraft_version=1.21.11
     yarn_mappings=1.21.11+build.4
@@ -284,25 +273,25 @@ private void registerTimeCommand(CommandDispatcher<ServerCommandSource> dispatch
     fabric_api_version=0.141.1+1.21.11
    ```
 
-4. **Projekt in `settings.gradle` hinzufügen:**
+4. **Add project to `settings.gradle`:**
    ```gradle
    include 'mc-1.21.11'
    ```
 
-5. **Neue Version bauen:**
+5. **Build new version:**
    ```bash
    ./gradlew :mc-1.21.11:build
    ```
 
-### Mod-Konfiguration anpassen
+### Customizing Mod Configuration
 
-**`fabric.mod.json` bearbeiten:**
-- Mod-ID, Name, Beschreibung ändern
-- Autoren und Kontaktinformationen aktualisieren
-- Neue Abhängigkeiten hinzufügen
-- Entry-Points für Server-Mod hinzufügen (falls benötigt)
+**Edit `fabric.mod.json`:**
+- Change mod ID, name, description
+- Update authors and contact information
+- Add new dependencies
+- Add entry points for server mod (if needed)
 
-**Beispiel für Server-Mod Entry-Point:**
+**Example for server mod entry point:**
 ```json
 {
   "entrypoints": {
@@ -312,43 +301,43 @@ private void registerTimeCommand(CommandDispatcher<ServerCommandSource> dispatch
 }
 ```
 
-## 🛠️ Erweiterte Gradle-Optionen
+## 🛠️ Advanced Gradle Options
 
-### Build-Optimierungen
+### Build Optimizations
 
-* **Parallele Ausführung:**
+* **Parallel execution:**
   ```bash
   ./gradlew build --parallel
   ```
 
-* **Build-Cache verwenden:**
+* **Use build cache:**
   ```bash
   ./gradlew build --build-cache
   ```
 
-* **Nur bestimmte Tasks ausführen:**
+* **Run only specific tasks:**
   ```bash
   ./gradlew :mc-1.21.1:compileJava :mc-1.21.1:processResources
   ```
 
-### Debugging und Troubleshooting
+### Debugging and Troubleshooting
 
-* **Verbose Output:**
+* **Verbose output:**
   ```bash
   ./gradlew build --info
   ```
 
-* **Stacktrace bei Fehlern:**
+* **Stacktrace on errors:**
   ```bash
   ./gradlew build --stacktrace
   ```
 
-* **Dependency-Baum anzeigen:**
+* **Show dependency tree:**
   ```bash
   ./gradlew :mc-1.21.1:dependencies
   ```
 
-* **Cache leeren:**
+* **Clear cache:**
   ```bash
   ./gradlew clean
   rm -rf ~/.gradle/caches/
@@ -356,21 +345,21 @@ private void registerTimeCommand(CommandDispatcher<ServerCommandSource> dispatch
 
 ## 📜 Credits
 
-Dieses Template wurde von shyskyfox erstellt. Wenn du dieses Template für deine eigenen Mods verwendest, gib bitte eine kurze Erwähnung im Mod-Beschreibung oder README deiner Mod. Zum Beispiel:
+This template was created by shyskyfox. If you use this template for your own mods, please give a short mention in your mod description or README. For example:
 
-"Basierend auf dem Fabric Multi-Version Mod Template von shyskyfox (https://github.com/shyskyfox/fabric-multi-version-mod-template)"
+"Based on the Fabric Multi-Version Mod Template by shyskyfox (https://github.com/shyskyfox/fabric-multi-version-mod-template)"
 
-Die MIT-Lizenz erfordert die Beibehaltung des Copyright-Hinweises in allen Kopien oder wesentlichen Teilen der Software.
+The MIT license requires retaining the copyright notice in all copies or substantial portions of the software.
 
-## 📚 Weiterführende Ressourcen
+## 📚 Further Resources
 
 - [Fabric Modding Wiki](https://fabricmc.net/wiki/start)
-- [Fabric Command API Dokumentation](https://fabricmc.net/wiki/tutorial:commands)
+- [Fabric Command API Documentation](https://fabricmc.net/wiki/tutorial:commands)
 - [Minecraft Forge vs Fabric](https://fabricmc.net/wiki/faq#fabric_vs_forge)
 - [Gradle Build Tool](https://gradle.org/documentation/)
 
 ---
 
-<div align="center">Danke fürs Durchlesen :3</div>
+<div align="center">Thanks for reading :3</div>
 
 ---

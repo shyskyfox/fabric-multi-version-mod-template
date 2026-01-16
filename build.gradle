@@ -61,7 +61,7 @@ task addMcVersion(type: DefaultTask) {
         def fabricApiVersion = "0.106.1+${normalizedVersion}"
         def javaVersion = "21"
 
-        newProperties.text = """# Minecraft / Fabric Versionen für ${normalizedVersion}
+        newProperties.text = """# Minecraft / Fabric Versions for ${normalizedVersion}
 minecraft_version=${normalizedVersion}
 yarn_mappings=${yarnMappings}
 loader_version=${loaderVersion}
@@ -70,7 +70,7 @@ loom_version=${loomVersion}
 # Fabric API
 fabric_api_version=${fabricApiVersion}
 
-# Java-Version
+# Java Version
 java_version=${javaVersion}
 """
 
@@ -96,8 +96,10 @@ java_version=${javaVersion}
         println "Updated settings.gradle to include the new version"
         println "Run './gradlew build' to test the new version"
         println ""
-        println "Hinweis: Überprüfe die korrekten Versionen für ${normalizedVersion} auf:"
+        println "==========================================================================="
+        println "Note: Check the correct versions for ${normalizedVersion} at:"
         println "https://fabricmc.net/develop/"
-        println "Aktualisiere ggf. die Werte in ${folderName}/gradle.properties"
+        println "Update the values in ${folderName}/gradle.properties if necessary"
+        println "==========================================================================="
     }
 }

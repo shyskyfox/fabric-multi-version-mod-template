@@ -1,0 +1,7 @@
+This mod was created using the fabric-multi-version-mod-template by shyskyfox.
+
+Credits:
+- Template Author: shyskyfox
+- Original Repository: https://github.com/shyskyfox/fabric-multi-version-mod-template
+
+Thank you for using this template!

@@ -14,7 +14,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class ExampleModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        // Registriert den Befehl beim Client Start (funktioniert auch im Singleplayer).
+        // Registers the command on client start (also works in singleplayer).
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             registerHelloCommand(dispatcher);
         });
@@ -23,9 +23,9 @@ public class ExampleModClient implements ClientModInitializer {
     private void registerHelloCommand(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("hello")
             .executes(context -> {
-                // Diese Logik wird ausgeführt, wenn jemand "/hello" eingibt.
+                // This logic is executed when someone types "/hello".
                 context.getSource().sendFeedback(() -> Text.literal("Hello, world!"), false);
-                return 1; // 1 signalisiert eine erfolgreiche Ausführung
+                return 1; // 1 signals a successful execution
             }));
     }
 }
