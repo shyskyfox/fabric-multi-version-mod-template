@@ -63,6 +63,8 @@ fabric-multi-version-mod-template/
 | `./gradlew clean` | Build-Verzeichnisse leeren | `./gradlew clean` |
 | `./gradlew build` | Alle Versionen bauen | `./gradlew build` |
 | `./gradlew :mc-1.21.1:build` | Spezifische Version bauen | `./gradlew :mc-1.21.1:build` |
+| `./gradlew addMcVersion -PmcVersion=X.Y.Z` | Neue MC-Version hinzufügen | `./gradlew addMcVersion -PmcVersion=1.21.3` |
+| `.\gradlew.bat addMcVersion -PmcVersion=1-21-4` | Neue MC-Version mit Bindestrichen | `./gradlew addMcVersion -PmcVersion=1-21-4` |
 
 ### Entwicklung und Test
 
@@ -230,6 +232,36 @@ private void registerTimeCommand(CommandDispatcher<ServerCommandSource> dispatch
 
 ### Neue Minecraft-Version hinzufügen
 
+**Automatisch mit Gradle-Task (empfohlen):**
+
+1. **Gradle-Task verwenden (nicht-interaktiv):**
+   ```bash
+   # Linux/macOS
+   ./gradlew addMcVersion -PmcVersion=1.21.11
+
+   # Windows (Bindestriche werden automatisch in Punkte umgewandelt)
+   .\gradlew.bat addMcVersion -PmcVersion=1-21-11
+   ```
+
+2. **Gradle-Task verwenden (interaktiv - für manuelle Anpassungen):**
+   ```bash
+   # Linux/macOS
+   ./gradlew addMcVersion -Pinteractive=true
+
+   # Windows
+   .\gradlew.bat addMcVersion -Pinteractive=true
+   ```
+   *Hinweis:* Der interaktive Modus erfordert ein Terminal, das Konsolen-Eingabe unterstützt. In einigen IDE-Terminals oder PowerShell-Umgebungen funktioniert dies möglicherweise nicht. Verwende in diesem Fall die nicht-interaktive Variante und passe die `gradle.properties` bei Bedarf manuell an.
+
+   **Wichtig:** Nach dem Hinzufügen einer Version überprüfe die korrekten Fabric-Versionen auf https://fabricmc.net/develop/ und aktualisiere ggf. die `gradle.properties` im neuen Ordner.
+
+3. **Neue Version bauen:**
+   ```bash
+   ./gradlew :mc-1.21.11:build
+   ```
+
+**Manuell (alternativ):**
+
 1. **Neues Verzeichnis erstellen:**
    ```bash
    mkdir mc-1.21.11
@@ -247,7 +279,7 @@ private void registerTimeCommand(CommandDispatcher<ServerCommandSource> dispatch
     yarn_mappings=1.21.11+build.4
     loader_version=0.18.4
     loom_version=1.14-SNAPSHOT
-    
+
     # Fabric API
     fabric_api_version=0.141.1+1.21.11
    ```

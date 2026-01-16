@@ -15,3 +15,89 @@ allprojects {
 }
 
 // Root project doesn't need a custom build task - Gradle handles subproject builds automatically
+
+// Task to add a new Minecraft version
+task addMcVersion(type: DefaultTask) {
+    group = 'build setup'
+    description = 'Adds support for a new Minecraft version'
+
+    // Define task properties
+    ext {
+        mcVersion = project.hasProperty('mcVersion') ? project.mcVersion : null
+    }
+
+    doLast {
+        if (!mcVersion || mcVersion.trim().empty) {
+            throw new GradleException('Minecraft version cannot be empty.')
+        }
+
+        // Convert dashes to dots for internal use (e.g., 1-21-4 -> 1.21.4)
+        def normalizedVersion = mcVersion.replace('-', '.')
+
+        def folderName = "mc-${normalizedVersion}"
+        def folder = new File(project.rootDir, folderName)
+
+        if (folder.exists()) {
+            throw new GradleException("Folder ${folderName} already exists!")
+        }
+
+        println "Creating new Minecraft version support for ${normalizedVersion} (input: ${mcVersion})"
+
+        // Create folder
+        folder.mkdirs()
+
+        // Copy build.gradle template
+        def templateBuildGradle = new File(project.rootDir, 'mc-1.21.1/build.gradle')
+        def newBuildGradle = new File(folder, 'build.gradle')
+        newBuildGradle.text = templateBuildGradle.text
+
+        // Create gradle.properties
+        def newProperties = new File(folder, 'gradle.properties')
+
+        // Default values (can be overridden)
+        def yarnMappings = "${normalizedVersion}+build.1"
+        def loaderVersion = "0.18.4"
+        def loomVersion = "1.14-SNAPSHOT"
+        def fabricApiVersion = "0.106.1+${normalizedVersion}"
+        def javaVersion = "21"
+
+        newProperties.text = """# Minecraft / Fabric Versionen für ${normalizedVersion}
+minecraft_version=${normalizedVersion}
+yarn_mappings=${yarnMappings}
+loader_version=${loaderVersion}
+loom_version=${loomVersion}
+
+# Fabric API
+fabric_api_version=${fabricApiVersion}
+
+# Java-Version
+java_version=${javaVersion}
+"""
+
+        // Update settings.gradle
+        def settingsFile = new File(project.rootDir, 'settings.gradle')
+        def settingsContent = settingsFile.text
+
+        // Find the include line and add the new version
+        def includePattern = /include\s+'core',\s*'mc-[^']*'(?:\s*,\s*'mc-[^']*')*/
+        def newInclude = "include 'core', 'mc-1.21.1', 'mc-1.21.2', '${folderName}'"
+
+        if (settingsContent =~ includePattern) {
+            settingsContent = settingsContent.replaceFirst(includePattern, newInclude)
+        } else {
+            // Fallback: just append
+            settingsContent += "\ninclude '${folderName}'"
+        }
+
+        settingsFile.text = settingsContent
+
+        println "Successfully added Minecraft version ${mcVersion}"
+        println "Folder created: ${folderName}"
+        println "Updated settings.gradle to include the new version"
+        println "Run './gradlew build' to test the new version"
+        println ""
+        println "Hinweis: Überprüfe die korrekten Versionen für ${normalizedVersion} auf:"
+        println "https://fabricmc.net/develop/"
+        println "Aktualisiere ggf. die Werte in ${folderName}/gradle.properties"
+    }
+}
