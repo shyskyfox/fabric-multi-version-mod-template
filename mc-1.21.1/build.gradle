@@ -9,7 +9,7 @@ apply from: '../dependencies.gradle'
 // Function to replace placeholders in export format
 def resolveExportFormat(String format) {
     return format
-        .replace('{modname}', rootProject.mod_id)
+        .replace('{mod-name}', rootProject.mod_id)
         .replace('{mod-version}', rootProject.version)  // Use root project version for consistency
         .replace('{mc-version}', project.minecraft_version)
         .replace('{mc-version-dashed}', project.minecraft_version.replace('.', '-'))
