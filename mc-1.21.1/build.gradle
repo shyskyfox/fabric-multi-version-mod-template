@@ -141,3 +141,7 @@ publishing {
         // Publishing repositories
     }
 }
+
+sourcesJar {
+    dependsOn processSources, copyCoreResources
+}
