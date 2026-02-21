@@ -1,0 +1,6 @@
+// Global API changes map for automatic version-based replacements
+// Format: [minVersion: 'mcVersion', replacements: ['oldMethod(': 'newMethod(']]
+ext.globalApiChanges = [
+    // [minVersion: '1.21.11', replacements: ['hasPermissionLevel(2)': 'getServer().getPermissionLevel(context.getSource().getEntity()) >= 2']]
+    // Add more: [minVersion: '1.22.0', replacements: ['oldMethod(': 'newMethod(']]
+]

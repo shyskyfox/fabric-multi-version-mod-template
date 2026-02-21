@@ -14,6 +14,9 @@ allprojects {
     }
 }
 
+// Load global API changes
+apply from: 'api-changes.gradle'
+
 // Root project doesn't need a custom build task - Gradle handles subproject builds automatically
 
 // Task to add a new Minecraft version

@@ -24,7 +24,11 @@ public class ExampleModClient implements ClientModInitializer {
         dispatcher.register(literal("hello")
             .executes(context -> {
                 // This logic is executed when someone types "/hello".
-                context.getSource().sendFeedback(() -> Text.literal("Hello, world!"), false);
+                if (context.getSource().hasPermissionLevel(2)) {
+                    context.getSource().sendFeedback(() -> Text.literal("Hello, world!"), false);
+                } else {
+                    context.getSource().sendFeedback(() -> Text.literal("No permission!"), false);
+                }
                 return 1; // 1 signals a successful execution
             }));
     }

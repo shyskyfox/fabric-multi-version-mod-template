@@ -45,9 +45,60 @@ dependencies {
     // configurations.modImplementation.exclude group: 'com.example', module: 'unwanted-mod'
 }
 
-// Include sources from core
-sourceSets.main.java.srcDirs += file('../core/src/main/java')
-sourceSets.main.resources.srcDirs += file('../core/src/main/resources')
+// Automatic API replacements based on global changes and current version
+def apiReplacements = [:]
+rootProject.globalApiChanges.each { change ->
+    if (versionGreaterOrEqual(project.minecraft_version, change.minVersion)) {
+        apiReplacements.putAll(change.replacements)
+    }
+}
+
+// Helper function for version comparison
+def versionGreaterOrEqual(String current, String min) {
+    def currentParts = current.split(/\./).collect { it.toInteger() }
+    def minParts = min.split(/\./).collect { it.toInteger() }
+    for (int i = 0; i < Math.max(currentParts.size(), minParts.size()); i++) {
+        int c = i < currentParts.size() ? currentParts[i] : 0
+        int m = i < minParts.size() ? minParts[i] : 0
+        if (c > m) return true
+        if (c < m) return false
+    }
+    return true
+}
+
+// Temporary directory for processed sources
+def processedSourcesDir = file("$buildDir/processed-sources")
+def processedResourcesDir = file("$buildDir/processed-resources")
+
+// Task to process sources with API replacements
+task processSources(type: Copy) {
+    from '../core/src/main/java'
+    into processedSourcesDir
+
+    // Apply replacements
+    filter { line ->
+        apiReplacements.each { oldStr, newStr ->
+            line = line.replace(oldStr, newStr)
+        }
+        line
+    }
+
+    include '**/*.java'
+}
+
+// Task to copy core resources
+task copyCoreResources(type: Copy) {
+    from '../core/src/main/resources'
+    into processedResourcesDir
+}
+
+// Include processed sources
+sourceSets.main.java.srcDirs = [processedSourcesDir]
+sourceSets.main.resources.srcDirs = [processedResourcesDir]
+
+// Ensure processing happens before compilation
+compileJava.dependsOn processSources, copyCoreResources
+processResources.dependsOn copyCoreResources
 
 processResources {
     inputs.property "version", rootProject.version
